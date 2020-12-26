@@ -6,9 +6,11 @@ const Model = require("./model");
 const PORT = process.env.PORT || 5000;
 
 let server = express();
+// Using middleware
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
 server.use(cors());
+
 mongoose.connect(
     "mongodb+srv://notesadmin:notesadmin@notes-app.dgwws.mongodb.net/notes-app?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true },
@@ -144,6 +146,22 @@ server.patch("/editNote", (request, response) => {
                     }
                 }
             );
+        }
+    });
+});
+
+server.post("/getNotes", (request, response) => {
+    let { id } = request.body;
+    let userModel = Model.userModel;
+    userModel.findById(id, (err, data) => {
+        if (err) {
+            console.log("Error: ", err);
+            response.status(500).send("Unknown database error");
+        } else {
+            if (data === null) {
+                response.status(404).send("Invalid User");
+            }
+            response.json(data.notes);
         }
     });
 });
