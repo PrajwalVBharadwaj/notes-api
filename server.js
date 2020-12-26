@@ -1,12 +1,14 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const Model = require("./model");
 const PORT = process.env.PORT || 5000;
 
 let server = express();
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
+server.use(cors());
 mongoose.connect(
     "mongodb+srv://notesadmin:notesadmin@notes-app.dgwws.mongodb.net/notes-app?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true },
