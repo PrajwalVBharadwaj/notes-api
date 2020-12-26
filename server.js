@@ -12,6 +12,8 @@ server.use(bodyParser.urlencoded({ extended: true }));
 server.use(cors());
 
 mongoose.connect(
+    // mongodb://127.0.0.1:27017/DATABASE_NAME
+    // Replace the DB URL with your local instamce URL
     "mongodb+srv://notesadmin:notesadmin@notes-app.dgwws.mongodb.net/notes-app?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true },
     (err) => {
